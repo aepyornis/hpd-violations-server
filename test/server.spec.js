@@ -7,7 +7,7 @@ before(done => server.listen(server.server, done));
 
 describe('bbl/:bbl/all route', () =>{
   
-  describe('BBL has at least one records', ()=>{
+  describe('If BBL has at least one records', ()=>{
     let res;
     
     before(done => {
@@ -22,6 +22,7 @@ describe('bbl/:bbl/all route', () =>{
     it('contains an array with at least one violation', ()=> {
       res.body.should.be.an.Array();
       res.body.length.should.be.aboveOrEqual(1);
+      should(res.body.error).be.undefined();
     });
 
     it('violation data with correct shape', () =>{
@@ -31,6 +32,24 @@ describe('bbl/:bbl/all route', () =>{
       viol.bbl.should.eql('1020350001');
     });
 
+  });
+
+  describe('If BBL is not in db', ()=>{
+    let res;
+    
+    before(done => {
+      request
+        .get(url + '/bbl/0123456789/all')
+        .end((err, responce) => {
+          res = responce;
+          done();
+        });
+    });
+    
+    it('sends correct error message', ()=>{
+      res.body.message.should.be.a.String();
+      res.body.error.should.eql(0);
+    });
   });
   
 });

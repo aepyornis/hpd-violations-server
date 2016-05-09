@@ -9,6 +9,15 @@ const all_violations = bbl => {
     .toParam();
 }; 
 
+const open_violations = bbl => {
+  return squel.select()
+    .from('uniq_violations')
+    .where('bbl = ?', bbl)
+    .where('currentstatusid <> 19')
+    .toParam();
+}; 
+
 module.exports = {
-  all_violations: all_violations
+  all_violations: all_violations,
+  open_violations: open_violations
 };

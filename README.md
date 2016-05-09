@@ -27,10 +27,10 @@ lng - numeric
 records - int
 
 ### Routes
+sends back json.
 
-/bbl/:bbl/all -> json of above fields
-
-
+/bbl/:bbl/all -> all violations
+/bbl/:bbl/open -> open violations
 
 
 ### config.js:

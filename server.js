@@ -12,6 +12,7 @@ const listen = (server, cb) => {
 };
 
 server.get('/bbl/:bbl/all', c.bbl_all);
+server.get('/bbl/:bbl/open', c.bbl_open);
 
 // listen(server, ()=>{});
 module.exports = {

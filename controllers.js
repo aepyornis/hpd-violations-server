@@ -6,8 +6,7 @@ const query = require('./query');
 const db = pgp(config.pg); 
 
 /**
-If the query returns no rows, then a json with error info is returned.
-Otherwise, the error is sent, which triggers restify to send a 500 status code.
+If the query returns no rows, an custom error-json is returned. If another error occurs, the error is returned.
 For info on QueryResultError codes see: http://vitaly-t.github.io/pg-promise/errors_queryResult.js.html
 */
 const handle_error = err => (err instanceof QueryResultError) ? 
@@ -17,13 +16,22 @@ const handle_error = err => (err instanceof QueryResultError) ?
       } : 
       err;
 
-const bbl_all = (req, res, next) => {
-  db.many(query.all_violations(req.params.bbl))
-    .then(data => res.json(data))
-    .catch(err => res.send(handle_error(err)));
+// string -> function
+// Returns route handler for the given queryType.
+const db_query = queryType => {
+  return (req,res,next) => {
+    db.many(query[queryType](req.params.bbl))
+      .then(data => res.json(data))
+      .catch(err => res.send(handle_error(err)));
+  };
 };
+
+const bbl_all = db_query('all_violations');
+const bbl_open = db_query('open_violations');
+
 
 module.exports = {
   bbl_all: bbl_all,
+  bbl_open: bbl_open,
   handle_error: handle_error
 };

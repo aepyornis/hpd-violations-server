@@ -4,14 +4,14 @@ const squel = require('squel').useFlavour('postgres');
 // Creates select all unique violations for providen bbl
 const all_violations = bbl => {
   return squel.select()
-    .from('uniq_violations')
+    .from('all_violations')
     .where('bbl = ?', bbl)
     .toParam();
 }; 
 
 const open_violations = bbl => {
   return squel.select()
-    .from('uniq_violations')
+    .from('all_violations')
     .where('bbl = ?', bbl)
     .where('currentstatusid <> 19')
     .toParam();

@@ -11,10 +11,14 @@ const listen = (server, cb) => {
   });
 };
 
+server.use(restify.CORS());
+
 server.get('/bbl/:bbl/all', c.bbl_all);
 server.get('/bbl/:bbl/open', c.bbl_open);
 
-// listen(server, ()=>{});
+
+listen(server, ()=>{});
+
 module.exports = {
   server: server,
   listen: listen

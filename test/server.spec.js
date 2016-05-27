@@ -27,7 +27,7 @@ describe('bbl/:bbl/all route', () =>{
 
     it('violation data with correct shape', () =>{
       let viol = res.body[0];
-      let keys = ['registrationid','violationid','buildingid','housenumber','streetname','apartment','zip','violationclass','inspectiondate','originalcertifybydate','originalcorrectbydate','newcertifybydate','newcorrectbydate','certifieddate','currentstatusid','currentstatus','currentstatusdate','bbl','lat','lng','records'];
+      let keys = ['registrationid','violationid','buildingid','housenumber','streetname','apartment','zip','violationclass','inspectiondate','originalcertifybydate','originalcorrectbydate','newcertifybydate','newcorrectbydate','certifieddate','currentstatusid','currentstatus','currentstatusdate','bbl','lat','lng','records', 'novdescription', 'datasource'];
       viol.should.have.keys(keys);
       viol.bbl.should.eql('1020350001');
     });
@@ -49,7 +49,6 @@ describe('bbl/:bbl/all route', () =>{
   });
 });
 
-
 describe('bbl/:bbl/open', () =>{
   var res;
   before( done  => req_setup('1020350001', 'open', (responce) => {
@@ -65,7 +64,7 @@ describe('bbl/:bbl/open', () =>{
   
   it('violation data with correct shape', () =>{
     let viol = res.body[0];
-    let keys = ['registrationid','violationid','buildingid','housenumber','streetname','apartment','zip','violationclass','inspectiondate','originalcertifybydate','originalcorrectbydate','newcertifybydate','newcorrectbydate','certifieddate','currentstatusid','currentstatus','currentstatusdate','bbl','lat','lng','records'];
+    let keys = ['registrationid','violationid','buildingid','housenumber','streetname','apartment','zip','violationclass','inspectiondate','originalcertifybydate','originalcorrectbydate','newcertifybydate','newcorrectbydate','certifieddate','currentstatusid','currentstatus','currentstatusdate','bbl','lat','lng','records', 'novdescription', 'datasource'];
     viol.should.have.keys(keys);
     viol.bbl.should.eql('1020350001');
   });
@@ -74,4 +73,3 @@ describe('bbl/:bbl/open', () =>{
     res.body.forEach( v => v.currentstatusid.should.not.eql(19) );
   });
 });
-

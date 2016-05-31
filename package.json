@@ -25,11 +25,11 @@
   "homepage": "https://github.com/aepyornis/hpd-violations-server#readme",
   "devDependencies": {
     "mocha": "^2.5.3",
-    "should": "^8.4.0",
+    "should": "^9.0.0",
     "superagent": "^1.8.3"
   },
   "dependencies": {
-    "pg-promise": "^4.3.2",
+    "pg-promise": "^4.3.5",
     "restify": "^4.1.0",
     "squel": "^5.2.1"
   }

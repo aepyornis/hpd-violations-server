@@ -6,14 +6,15 @@ after( () => pgp.end() );
 
 describe('handle_error', () =>{
 
-  it('returns json if given an QueryResultError', () =>{
-    return db.many("select * from violations where bbl = 'NOT REAL'")
+  it('returns json if given an QueryResultError', function(done){
+    db.many("select * from violations where bbl = 'NOT REAL'")
       .then()
       .catch( err => {
         let e = handle_error(err);
         e.error.should.eql(0);
         e.message.should.be.a.String();
-      });
+        done();
+    });
   });
   
   it('returns the error for any other type of error', ()=>{

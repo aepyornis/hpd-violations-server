@@ -14,10 +14,12 @@ describe('bbl/:bbl/all route', () =>{
   describe('If BBL has at least one records', ()=>{
     var res;
     
-    before( done  => req_setup('1020350001', 'all', (responce) => {
-      res = responce;
-      done();
-    }));
+    before(function(done){ 
+      req_setup('1020350001', 'all', responce => {
+        res = responce;
+        done();
+      });
+    });
 
     it('contains an array with at least one violation', ()=> {
       res.body.should.be.an.Array();
@@ -28,7 +30,7 @@ describe('bbl/:bbl/all route', () =>{
     it('violation data with correct shape', () =>{
       let viol = res.body[0];
       let keys = ['registrationid','violationid','buildingid','housenumber','streetname','apartment','zip','violationclass','inspectiondate','originalcertifybydate','originalcorrectbydate','newcertifybydate','newcorrectbydate','certifieddate','currentstatusid','currentstatus','currentstatusdate','bbl','lat','lng','records', 'novdescription', 'datasource'];
-      viol.should.have.keys(keys);
+      viol.should.have.keys(...keys);
       viol.bbl.should.eql('1020350001');
     });
 
@@ -37,10 +39,12 @@ describe('bbl/:bbl/all route', () =>{
   describe('If BBL is not in db', ()=>{
     var res;
     
-    before( done  => req_setup('0123456789', 'all', (responce) => {
-      res = responce;
-      done();
-    }));
+    before(function(done){
+      req_setup('0123456789', 'all', responce => {
+        res = responce;
+        done();
+      });
+    });
     
     it('sends correct error message', ()=>{
       res.body.message.should.be.a.String();
@@ -51,11 +55,13 @@ describe('bbl/:bbl/all route', () =>{
 
 describe('bbl/:bbl/open', () =>{
   var res;
-  before( done  => req_setup('1020350001', 'open', (responce) => {
-    res = responce;
-    done();
-  }));
-  
+  before(function(done){
+    req_setup('1020350001', 'open', responce => {
+      res = responce;
+      done();
+    });
+  });
+
   it('contains an array with at least one violation', ()=> {
     res.body.should.be.an.Array();
     res.body.length.should.be.aboveOrEqual(1);
@@ -65,7 +71,7 @@ describe('bbl/:bbl/open', () =>{
   it('violation data with correct shape', () =>{
     let viol = res.body[0];
     let keys = ['registrationid','violationid','buildingid','housenumber','streetname','apartment','zip','violationclass','inspectiondate','originalcertifybydate','originalcorrectbydate','newcertifybydate','newcorrectbydate','certifieddate','currentstatusid','currentstatus','currentstatusdate','bbl','lat','lng','records', 'novdescription', 'datasource'];
-    viol.should.have.keys(keys);
+    viol.should.have.keys(...keys);
     viol.bbl.should.eql('1020350001');
   });
   

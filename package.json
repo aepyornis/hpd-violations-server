@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/aepyornis/hpd-violations-server#readme",
   "devDependencies": {
-    "mocha": "^2.5.3",
-    "should": "^9.0.0",
-    "superagent": "^1.8.3"
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "superagent": "^2.2.0"
   },
   "dependencies": {
     "pg-promise": "^5.1.0",
